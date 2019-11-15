@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    // Using the elements console to add a breakpoint when attributes are modified.
+    // This helps to identify the source of the modifications.
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Regular!');
+
+    // Interpolated
+    console.log('This is an interpolated %s', 'string');
+
+    // Styled
+    console.log('%c This log message has been styled', 'font-size: 17px; background: coral;');
+
+    // warning!
+    console.warn('Warning!');
+
+    // Error :|
+    console.error('🚨 Error!');
+
+    // Info
+    console.info('An adult giraffe\'s tongue is 17 inches long');
+
+    // Testing
+    console.assert(1 === 1, 'Unexpected answer');
+
+    // clearing
+    console.clear();
+
+    // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.log(p);
+    console.dir(p);
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`He is ${dog.age} years old`);
+      console.groupEnd(`${dog.name}`);
+    })
+
+    // counting
+    console.count('Nick');
+    console.count('Swansea')
+    console.count('Nick');
+    console.count('Llanelli')
+    console.count('Nick');
+    console.count('Nick');
+    console.count('Swansea')
+    console.count('Llanelli')
+    console.count('Swansea')
+    console.count('Nick');
+
+    // timing
+    console.time('fetching data')
+    fetch('https://api.github.com/users/NickBlomberg')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+  </script>
+</body>
+
+</html>
