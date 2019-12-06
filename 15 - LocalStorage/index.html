@@ -51,12 +51,16 @@
         <input type="text" name="item" placeholder="Item Name" required />
         <input type="submit" value="+ Add Item" />
       </form>
+
+      <button onclick="deleteAll()">Delete All</button>
+      <button onclick="setDoneAllItems(true)">Check All</button>
+      <button onclick="setDoneAllItems(false)">Uncheck All</button>
     </div>
 
     <script>
       const addItems = document.querySelector('.add-items');
       const itemsList = document.querySelector('.plates');
-      const items = JSON.parse(localStorage.getItem('items')) || [];
+      let items = JSON.parse(localStorage.getItem('items')) || [];
 
       function addItem(e) {
         e.preventDefault();
@@ -94,6 +98,23 @@
         const index = element.dataset.index;
 
         items[index].done = !items[index].done;
+        localStorage.setItem('items', JSON.stringify(items));
+      }
+
+      function deleteAll() {
+        items = [];
+        itemsList.innerHTML = '';
+        localStorage.setItem('items', JSON.stringify(items));
+      }
+
+      function setDoneAllItems(done = true) {
+        const checkedItems = items.map(item => {
+          item.done = done;
+          return item;
+        });
+
+        items = checkedItems;
+        populateList(checkedItems, itemsList);
         localStorage.setItem('items', JSON.stringify(items));
       }
 
